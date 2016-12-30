@@ -1,4 +1,14 @@
 '''
+TODO:
+- deal with when dictionary becomes full
+
+To finish:
+- look up other designs of solutions
+
+In real solution
+- design a solution
+- check that the input is well formed
+
 Created on 28 Dec 2016
 
 @author: chris
