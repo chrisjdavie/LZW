@@ -21,7 +21,7 @@ INITIAL_BIN_DIGITS = 5
 
 def main():
     
-    message = 'TOBEORNOTTOBEORTOBEORNOT#'
+    message = 'ABABABABAB#'
     
     compressed_message = compress(message)
     
@@ -87,10 +87,17 @@ def decompress(compressed_message):
     for bin_code in split_mess_gen:
         
         code = int(bin_code,2)
-            
-        output_sequence = list(extended_dict.keys())[code]
         
-        full = conjecture + output_sequence[0]
+        if code != len(extended_dict.keys()):
+            output_sequence = list(extended_dict.keys())[code]
+        
+            full = conjecture + output_sequence[0]
+            
+        else:
+            full = conjecture + conjecture[0]
+            
+            output_sequence = full
+            print("HHHHHHHHHHHH")
         
         extended_dict[full] = i_next
         i_next += 1
