@@ -1,4 +1,8 @@
 '''
+Follows the recipe in wiki. Is a good explanation
+
+https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch
+
 TODO:
 - deal with when dictionary becomes full
 
@@ -25,12 +29,6 @@ def main():
     
     compressed_message = compress(message)
     
-#     split_compressed_message = split_message("".join(compressed_message))
-#     
-#     print(compressed_message)
-#     print(split_compressed_message)
-#     
-#     exit()    
     message_ret = decompress(compressed_message)
     
     # todo - merge all into one, deal with size
@@ -74,22 +72,22 @@ def decompress(compressed_message):
     
     split_mess_gen = split_message(compressed_message)
     
-    extended_dict = gen_initial_dict()
+    extended_dictionary = list(gen_initial_dict().keys())
     
-    i_next = max(extended_dict.values()) + 1
+    i_next = len(extended_dictionary) + 1
     bin_code = split_mess_gen.__next__()
     
     code = int(bin_code,2)
     
-    conjecture = list(extended_dict.keys())[code]
+    conjecture = extended_dictionary[code]
     message.append(conjecture)
     
     for bin_code in split_mess_gen:
         
         code = int(bin_code,2)
         
-        if code != len(extended_dict.keys()):
-            output_sequence = list(extended_dict.keys())[code]
+        if code != len(extended_dictionary):
+            output_sequence = extended_dictionary[code]
         
             full = conjecture + output_sequence[0]
             
@@ -97,9 +95,8 @@ def decompress(compressed_message):
             full = conjecture + conjecture[0]
             
             output_sequence = full
-            print("HHHHHHHHHHHH")
         
-        extended_dict[full] = i_next
+        extended_dictionary.append(full)
         i_next += 1
         conjecture = output_sequence
         
